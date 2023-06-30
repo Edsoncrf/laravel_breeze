@@ -17,4 +17,7 @@ class Empresa extends Model
         'telefone',
         'cnpj'
     ];
+
+    public $timestamps = false;
+
 }
