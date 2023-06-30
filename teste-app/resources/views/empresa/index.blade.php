@@ -24,13 +24,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($empresas as $empresas)
+                            @forelse ($empresas as $empresa)
                                 <tr>
-                                    <td>{{ $empresas->nome }}</td>
-                                    <td>{{ $empresas->email }}</td>
-                                    <td>{{ $empresas->telefone }}</td>
-                                    <td>{{ $empresas->cnpj }}</td>
-                                    <td><a href="{{ url('/ ') }}" class="btn">Editar</a></td>
+                                    <td>{{ $empresa->nome }}</td>
+                                    <td>{{ $empresa->email }}</td>
+                                    <td>{{ $empresa->telefone }}</td>
+                                    <td>{{ $empresa->cnpj }}</td>
+                                    <td><a href="{{ url('/edit-empresa/'.$empresa->id) }}" class="btn">Editar</a></td>
                                     <td><a href="{{ url('/ ') }}" class="btn red">Deletar</a></td>
                                 </tr>
                             @empty

@@ -24,4 +24,23 @@ class EmpresaController extends Controller
 
         return redirect('/add-empresa')->with('message', 'Empresa adicionada');
     }
+
+    public function edit($empresa_id){
+        $empresa = Empresa::find($empresa_id);  
+        return view('empresa.edit', compact('empresa'));
+    }
+
+    public function update(EmpresaFormRequest $request, $empresa_id){
+        
+        $data = $request->validated();
+
+        $empresa = Empresa::where('id', $empresa_id)->update([
+            'nome' => $data['nome'],
+            'email' => $data['email'],
+            'telefone' => $data['telefone'],
+            'cnpj' => $data['cnpj'],
+        ]);       
+
+        return redirect('/empresas')->with('message', 'Empresa Alterada');
+    }
 }
