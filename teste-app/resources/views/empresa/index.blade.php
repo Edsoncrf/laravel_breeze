@@ -29,7 +29,7 @@
                                     <td>{{ $empresa->nome }}</td>
                                     <td>{{ $empresa->email }}</td>
                                     <td>{{ $empresa->telefone }}</td>
-                                    <td>{{ $empresa->cnpj }}</td>
+                                    <td class="cnpj-input">{{ $empresa->cnpj }}</td>
                                     <td><a href="{{ url('/edit-empresa/'.$empresa->id) }}" class="btn">Editar</a></td>
                                     <td>
                                         {{-- <a href="{{ url('/ ') }}" class="btn red">Deletar</a> --}}

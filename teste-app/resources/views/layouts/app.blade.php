@@ -39,32 +39,81 @@
             </main>
         </div>
         <script>
-document.addEventListener('DOMContentLoaded', function() {
-  var cnpjInputs = document.querySelectorAll('.cnpj-input');
-
-  cnpjInputs.forEach(function(input) {
-    input.addEventListener('input', function() {
-      var value = this.value.replace(/\D/g, ''); // Remove caracteres não numéricos
-      var formattedValue = formatCnpj(value);
-      this.value = formattedValue;
-    });
-  });
-});
-
-function formatCnpj(value) {
-  var formattedValue = '';
-  var cnpjRegex = /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/;
-
-  if (cnpjRegex.test(value)) {
-    formattedValue = value.replace(cnpjRegex, '$1.$2.$3/$4-$5');
-  } else {
-    formattedValue = value.slice(0, 14);
-  }
-
-  return formattedValue;
-}
-
-
+            document.addEventListener('DOMContentLoaded', function() {
+                var cnpjElements = document.querySelectorAll('.cnpj-input');
+        
+                cnpjElements.forEach(function(element) {
+                    var isInput = element.tagName === 'INPUT';
+        
+                    element.addEventListener('input', function() {
+                        var value = isInput ? this.value.replace(/\D/g, '') : this.innerText.replace(/\D/g, '');
+                        var maxLength = 14; // Número máximo de dígitos do CNPJ
+        
+                        if (value.length > maxLength) {
+                            value = value.slice(0, maxLength);
+                        }
+        
+                        var formattedValue = formatCnpj(value);
+        
+                        if (isInput) {
+                            this.value = formattedValue;
+                        } else {
+                            this.innerText = formattedValue;
+                        }
+                    });
+        
+                    // Formatação automática do CNPJ
+                    var value = isInput ? element.value.replace(/\D/g, '') : element.innerText.replace(/\D/g, '');
+                    var formattedValue = formatCnpj(value);
+        
+                    if (isInput) {
+                        element.value = formattedValue;
+                    } else {
+                        element.innerText = formattedValue;
+                    }
+                });
+            });
+        
+            function formatCnpj(value) {
+                var formattedValue = '';
+                var cnpjRegex = /^(\d{0,2})(\d{0,3})(\d{0,3})(\d{0,4})(\d{0,2})$/;
+        
+                formattedValue = value.replace(cnpjRegex, function(match, g1, g2, g3, g4, g5) {
+                    var result = '';
+                    if (g1) {
+                        result += g1;
+                        if (g1.length === 2) {
+                            result += '.';
+                        }
+                    }
+                    if (g2) {
+                        result += g2;
+                        if (g2.length === 3) {
+                            result += '.';
+                        }
+                    }
+                    if (g3) {
+                        result += g3;
+                        if (g3.length === 3) {
+                            result += '/';
+                        }
+                    }
+                    if (g4) {
+                        result += g4;
+                        if (g4.length === 4) {
+                            result += '-';
+                        }
+                    }
+                    if (g5) {
+                        result += g5;
+                    }
+                    return result;
+                });
+        
+                return formattedValue;
+            }
         </script>
+        
+        
     </body>
 </html>

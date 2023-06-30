@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Empresa;
 use Illuminate\Http\Request;
 use App\Http\Requests\EmpresaFormRequest;
+use Illuminate\Http\Response;
 
 class EmpresaController extends Controller
 {
@@ -19,6 +20,8 @@ class EmpresaController extends Controller
 
     public function store(EmpresaFormRequest $request){
         $data = $request->validated();
+
+        $data['cnpj'] = preg_replace('/[^0-9]/', '', $data['cnpj']);
 
         $empresa = Empresa::create($data);       
 
@@ -38,7 +41,7 @@ class EmpresaController extends Controller
             'nome' => $data['nome'],
             'email' => $data['email'],
             'telefone' => $data['telefone'],
-            'cnpj' => $data['cnpj'],
+            'cnpj' => preg_replace('/[^0-9]/', '', $data['cnpj']),
         ]);       
 
         return redirect('/empresas')->with('message', 'Empresa Alterada');
@@ -48,4 +51,20 @@ class EmpresaController extends Controller
         $empresa = Empresa::find($empresa_id)->delete();  
         return redirect('/empresas')->with('message', 'Empresa Deletada');
     }
+
+    public function show($cnpj)
+    {
+       
+        // $empresa = Empresa::where('cnpj', $cnpj)->first();
+        $empresa = Empresa::select('nome', 'email', 'telefone', 'cnpj')
+                            ->where('cnpj', $cnpj)
+                            ->first();
+
+        if ($empresa) {
+            return response()->json($empresa);
+        } else {
+            return response()->json(['message' => 'Empresa não encontrada'], Response::HTTP_NOT_FOUND);
+        }
+    }
+
 }

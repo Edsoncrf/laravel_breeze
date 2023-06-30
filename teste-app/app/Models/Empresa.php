@@ -19,5 +19,5 @@ class Empresa extends Model
     ];
 
     public $timestamps = false;
-
+    
 }
