@@ -38,5 +38,33 @@
                 {{ $slot }}
             </main>
         </div>
+        <script>
+document.addEventListener('DOMContentLoaded', function() {
+  var cnpjInputs = document.querySelectorAll('.cnpj-input');
+
+  cnpjInputs.forEach(function(input) {
+    input.addEventListener('input', function() {
+      var value = this.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+      var formattedValue = formatCnpj(value);
+      this.value = formattedValue;
+    });
+  });
+});
+
+function formatCnpj(value) {
+  var formattedValue = '';
+  var cnpjRegex = /^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/;
+
+  if (cnpjRegex.test(value)) {
+    formattedValue = value.replace(cnpjRegex, '$1.$2.$3/$4-$5');
+  } else {
+    formattedValue = value.slice(0, 14);
+  }
+
+  return formattedValue;
+}
+
+
+        </script>
     </body>
 </html>

@@ -32,7 +32,7 @@
                         <br>
                         <div>
                             <x-input-label for="cnpj" :value="__('CNPJ')" />
-                            <x-text-input id="cnpj" class="block mt-1 w-full" type="text" name="cnpj" :value="old('cnpj')" required autofocus />
+                            <x-text-input id="cnpj" class="block mt-1 w-full cnpj-input" type="text" name="cnpj" :value="old('cnpj')" required autofocus />
                         </div>
                         <br>
                         <div>
