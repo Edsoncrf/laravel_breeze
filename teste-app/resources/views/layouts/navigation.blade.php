@@ -19,6 +19,10 @@
                     <x-nav-link :href="url('add-empresa')" :active="request()->routeIs('add-empresa')">
                         {{ __('Adicionar Empresa') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="url('empresas')" :active="request()->routeIs('empresas')">
+                        {{ __('Empresas') }}
+                    </x-nav-link>
                 </div>
             </div>
 
