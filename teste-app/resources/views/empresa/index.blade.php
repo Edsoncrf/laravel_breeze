@@ -31,7 +31,14 @@
                                     <td>{{ $empresa->telefone }}</td>
                                     <td>{{ $empresa->cnpj }}</td>
                                     <td><a href="{{ url('/edit-empresa/'.$empresa->id) }}" class="btn">Editar</a></td>
-                                    <td><a href="{{ url('/ ') }}" class="btn red">Deletar</a></td>
+                                    <td>
+                                        {{-- <a href="{{ url('/ ') }}" class="btn red">Deletar</a> --}}
+                                        <form action="{{ url('delete-empresa/'.$empresa->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn red">Deletar</button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @empty
                                 <tr>

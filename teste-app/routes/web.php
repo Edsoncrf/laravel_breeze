@@ -36,4 +36,5 @@ Route::controller(App\Http\Controllers\EmpresaController::class)->group(function
     Route::post('/add-empresa', 'store');
     Route::get('/edit-empresa/{empresa_id}', 'edit');
     Route::put('/update-empresa/{empresa_id}', 'update');
+    Route::delete('/delete-empresa/{empresa_id}', 'destroy');
 });

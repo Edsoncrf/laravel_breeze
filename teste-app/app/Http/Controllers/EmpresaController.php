@@ -43,4 +43,9 @@ class EmpresaController extends Controller
 
         return redirect('/empresas')->with('message', 'Empresa Alterada');
     }
+
+    public function destroy($empresa_id){
+        $empresa = Empresa::find($empresa_id)->delete();  
+        return redirect('/empresas')->with('message', 'Empresa Deletada');
+    }
 }
